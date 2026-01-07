@@ -7,6 +7,7 @@ import os
 from art import *
 import asyncio
 import random
+from groq import Groq
 
 # переменная для хранения данных в памяти
 users_cache = {}
@@ -29,16 +30,24 @@ if os.path.exists('config.json'):
     with open('config.json', 'r') as f:
         config = json.load(f)
     TOKEN = config.get('token')
+    GROQ_KEY = config.get('groq_key')
 else:
     print("Ошибка: Файл config.json не найден!")
     exit()
+
+# проверка ключа нейронки
+groq_client = None
+if GROQ_KEY:
+    groq_client = Groq(api_key=GROQ_KEY)
+else:
+    print("Внимание: Groq Key не найден!")
 
 # сохранение данных в json раз в 5 минут
 @tasks.loop(minutes=5)
 async def save_data_task():
     with open('users.json', 'w', encoding='utf-8') as f:
         json.dump(users_cache, f, ensure_ascii=False, indent=2)
-    print("Данные пользователей сохранены (автосейв).")
+    print(text2art("User data has been saved (autosave)."))
 
 # загрузка данных с json
 if os.path.exists('users.json'):
@@ -88,6 +97,39 @@ async def choice_command(interaction: discord.Interaction, choices: str):
         return
     winner = random.choice(choices_array)
     await interaction.response.send_message(f"From the options: *{', '.join(choices_array)}*\nMy choice **{winner}**")
+
+# вопрос нейросети
+@tree.command(name="ask", description="ask groq a question")
+async def ask(interaction: discord.Interaction, question: str):
+    await interaction.response.defer()
+    if not groq_client:
+        await interaction.followup.send("Нейросеть не подключена (нет ключа).")
+        return
+    try:
+        # Отправляем запрос
+        chat_completion = groq_client.chat.completions.create(
+            model="llama-3.1-8b-instant", 
+            messages=[
+                {
+                    "role": "user",
+                    "content": question
+                }
+            ],
+            temperature=0.7, # Креативность (0.5 - строго, 1.0 - фантазия)
+            max_tokens=1024, # Лимит длины ответа
+        )
+
+        answer = chat_completion.choices[0].message.content
+
+        if len(answer) > 1900:
+            answer = answer[:1900] + "... (ответ обрезан)"
+
+        await interaction.followup.send(f"**Вопрос:** {question}\n**Llama:** {answer}")
+
+    except Exception as e:
+        print(f"Ошибка Groq: {e}")
+        # Если ошибка 429 вылезет и тут, значит сервер перегружен, но это бывает редко
+        await interaction.followup.send("Нейросеть сейчас недоступна, попробуй позже.")
 
 # Счет сообщений на сервере
 @client.event
