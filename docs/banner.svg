@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+  <title id="title">Братка — Discord-бот для своего сервера</title>
+  <desc id="desc">Рейтинг активности, случайный выбор и ответы нейросети.</desc>
+  <rect width="960" height="250" rx="24" fill="#141722"/>
+  <circle cx="861" cy="39" r="120" fill="#20243d"/>
+  <circle cx="887" cy="231" r="140" fill="#1b2034"/>
+  <rect x="54" y="65" width="112" height="106" rx="30" fill="#a6b5ff"/>
+  <path d="M110 65V46" stroke="#a6b5ff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="110" cy="39" r="9" fill="#9ce6c3"/>
+  <rect x="73" y="89" width="74" height="43" rx="16" fill="#141722"/>
+  <circle cx="92" cy="109" r="6" fill="#9ce6c3"/>
+  <circle cx="128" cy="109" r="6" fill="#9ce6c3"/>
+  <path d="M94 148H126" stroke="#141722" stroke-width="6" stroke-linecap="round"/>
+  <text x="207" y="100" fill="#f5f6fc" font-family="Segoe UI,Arial,sans-serif" font-size="48" font-weight="700">Братка</text>
+  <text x="209" y="137" fill="#bbc3db" font-family="Segoe UI,Arial,sans-serif" font-size="21">Discord-бот для своего сервера</text>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#dce2ff">
+    <rect x="208" y="167" width="180" height="33" rx="16" fill="#2b324d"/>
+    <text x="226" y="189">Рейтинг активности</text>
+    <rect x="400" y="167" width="178" height="33" rx="16" fill="#2b324d"/>
+    <text x="418" y="189">Случайный выбор</text>
+    <rect x="590" y="167" width="155" height="33" rx="16" fill="#2b324d"/>
+    <text x="608" y="189">Ответы через AI</text>
+  </g>
+</svg>

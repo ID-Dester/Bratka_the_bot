@@ -1,4 +1,12 @@
 config.json
-__pycache__/
-*.pyc
 users.json
+users.json.bak
+users.json.tmp
+users.json.bak.tmp
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/

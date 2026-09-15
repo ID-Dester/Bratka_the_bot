@@ -1,0 +1,3 @@
+# Direct runtime dependencies; regenerate requirements.txt after changing these.
+discord.py==2.6.4
+groq==1.0.0
